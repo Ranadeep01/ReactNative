@@ -5,7 +5,7 @@ export default function auth() {
   return (
     <div>
       <View>
-        <Text>Auth</Text>
+        <Text>auth successful</Text>
       </View>
     </div>
   )
