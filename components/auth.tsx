@@ -1,129 +1,107 @@
-import React, { useState } from 'react'
-import { Alert, Button, Image, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import React, { useState } from 'react';
+import { Alert, Image, KeyboardAvoidingView, Platform, SafeAreaView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function Auth() {
-  const [time, setTime] = useState('00:00')
-
-  function alert(arg0: string): void {
-    throw new Error('Function not implemented.')
-  }
+  const [signUp, setSignUp] = useState(false);
 
   return (
+    <KeyboardAvoidingView
+      style={{ flex: 1, backgroundColor: 'white' }}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 22 : 0}>
+
     <SafeAreaView style={{flex:1, backgroundColor: 'white'}}>
-      <View style={css.header}>
-        <View style={css.time}>
-          <Text style={{color: 'black'}}>{time}</Text>
-        </View>
-        <View style={css.headerIcons}>
-          <Image source={require('../icons/network-icon.png')} style={css.icon} />
-          <Image source={require('../icons/wifi-icon.png')} style={css.icon}/>
-          <Image source={require('../icons/battery-icon.png')} style={css.icon}/>
-        </View>
-      </View>
       <View style={css.container}>
-        <Text style={{color: 'black', fontSize: 20 }}> sign in to your account </Text>
-        <View style={{display: 'flex', justifyContent: 'flex-start'}}>
-          <Text style={css.tag}> Email </Text>
+        <Text style={{color: 'black', fontSize: 27, paddingBottom: 20 }}> Sign in to your account </Text>
+        <View style={{display: 'flex', width: '80%', paddingBottom: 5}}>
+          <Text style={css.tag}> Email: </Text>
         </View>
         <TextInput placeholder='ex: email@gmail.com' style={css.input} />
-        <Text style={css.tag}> Password </Text>
+        <View style={{display: 'flex', width: '80%', paddingBottom: 5}}>
+          <Text style={css.tag}> Password: </Text>
+        </View>
         <TextInput placeholder='********' secureTextEntry style={css.input} />
         <TouchableOpacity style={css.button}>
           <Text>SIGN IN</Text>
         </TouchableOpacity>
-        <Text style={css.tag}>or sign in with</Text>
-        <Text style={css.tag}> Don't have an account?{' '}
-          <TouchableOpacity onPress={() => Alert.alert('Navigate to Sign Up screen')}>
-            <Text style={css.changeAuth}>SIGN UP</Text>
+        <Text style={[css.tag, {paddingTop: 20}]}>or sign in with</Text>
+        <View style={[css.alt, {paddingTop: 20}]}>
+          <View style={css.altIcons}>
+            <Image source={require('../icons/google-icon.png')}  />
+          </View>
+          <View style={css.altIcons}>
+            <Image source={require('../icons/fb-icon.png')}  />
+          </View>
+          <View style={css.altIcons}>
+            <Image source={require('../icons/x-icon.png')}  />
+          </View>
+        </View>  
+        <View style={[css.center, css.flexRow, {paddingTop: 20, gap: 5}]}>
+          <Text style={css.tag}>Don't have an account?</Text>
+          <TouchableOpacity>  
+            <Text style={[css.tag, {textDecorationLine: 'underline'}]}>Sign up</Text>
           </TouchableOpacity>
-        </Text>  
-        <View style={css.altIcons}>
-          <View style={css.altIcon}>
-            <Image source={require('../icons/google-icon.png')} />
-          </View>
-          <View style={css.altIcon}>
-            <Image source={require('../icons/google-icon.png')} />
-          </View>
-          <View style={css.altIcon}>
-            <Image source={require('../icons/google-icon.png')} />
-          </View>
-        </View>    
+        </View>
       </View>
     </SafeAreaView>
-  )
+    </KeyboardAvoidingView>
+  );
 }
 
 const css = StyleSheet.create({
-  header: {
-    display: 'flex',
-    flexDirection: 'row',
-    paddingHorizontal: '10%',
-    backgroundColor: 'pink',
-  },
-  time: {
-    flex: 1,
-  },
-  headerIcons: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    backgroundColor: 'pink',
-    maxHeight: 'auto',
-    height: 'auto',
-  },
-  icon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginHorizontal: 2,
-  },
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    
   },
   input: {
     width: '80%',
-    backgroundColor: 'black',
+    backgroundColor: '#a4a4a4',
     padding: 10,
     borderRadius: 10,
+    marginBottom: 10,
+    color: '#ffffff',
   },
   tag: {
-    // display: 'flex',
     color: '#6F6F6F',
+    textAlign: 'left',
   },
   button: {
     backgroundColor: '#00B140',
     width: '80%',
     height: 'auto',
     borderRadius: 10,
-    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     padding: 12,
     marginTop: 20,
+    
   },
   changeAuth: {
     color: '#00B140',
-    display: 'flex',
+  },
+  alt: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-around',
+    width: '80%',
+    gap: 5,
   },
   altIcons: {
     display: 'flex',
-    width: '80%',
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-
-  },
-  altIcon: {
-    display: 'flex',
     backgroundColor: '#F4F4F4',
-    width: 86,
     height: 42,
+    width: 86,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
+  center: {
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
   },
-})
+  flexRow: {
+    flexDirection: 'row',
+  }
+});
